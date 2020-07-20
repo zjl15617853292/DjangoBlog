@@ -4,8 +4,9 @@
 # 项目简介：用 Django 开发一个支持评论的博客系统，代码上传到 GitHub，系统部署到 Heroku
 # 项目启动时间：2020-07-18
 # 项目完成时间：2020-07-21
-# 参考文档：
+# 参考文档1：
 https://docs.djangoproject.com/en/2.2/intro/ 
+# 参考文档2：
 https://devcenter.heroku.com/articles/deploying-python
 # 开发模式：前后端不分离
 # 后端框架：Django+Django模板引擎
