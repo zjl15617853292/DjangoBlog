@@ -1,0 +1,14 @@
+asgiref==3.2.10
+cffi==1.14.0
+cryptography==2.9.2
+Django==3.0.8
+django-ckeditor==5.9.0
+django-js-asset==1.2.2
+django-redis==4.12.1
+Pillow==7.2.0
+pycparser==2.20
+PyMySQL==0.10.0
+pytz==2020.1
+redis==3.5.3
+six==1.15.0
+sqlparse==0.3.1

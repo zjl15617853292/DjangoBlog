@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章详情</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/common.js' %}">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="{% static 'js/vue.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/axios.min.js' %}"></script>
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+ <div id="app">
+        <!-导航栏->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-导航栏商标 ->
+            <div class="container">
+                <div>
+                     <a class="navbar-brand" href="{% url 'home:index' %}">个人博客</a>
+                </div>
+                <!- 分类 ->
+                <div class="collapse navbar-collapse">
+                    <div>
+                        <ul class="nav navbar-nav">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!- 登录/个人中心 ->
+            <div class="dropdown">
+                    <a class="btn dropdown-toggle bg-secondary" id="dropdownMenu1"
+                        data-toggle="dropdown" style="margin-right: 150px">
+                            <span aria-haspopup="true" aria-expanded="false">
+                                {{ user.username  }}
+                            </span>
+                    </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="{% url 'users:center' %}">个人信息</a>
+                    </li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="{% url 'home:write' %}">写博客</a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="{% url 'users:login' %}">切换/登录账号</a>
+                    </li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="{% url 'users:logout' %}">退出登录</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+         <!-content->
+ <div class="container">
+
+                <div class="row mt-2">
+                <!- 标题图 ->
+{#                <div class="col-3">#}
+{#                    <img src="{% static 'avator/title_img1.jpg'%}" alt="avatar" style="width: 270px; height: 210px">#}
+{#                </div>#}
+                <div class="col" >
+                    <!- 栏目 ->
+                    <a role="button" href="}" class="btn btn-sm mb-2 btn-warning">{{ article.category }}</a>
+                    <!- 标签 ->
+                    <span>
+                        <a href="" class="badge badge-secondary">{{ article.tags }}</a>
+                    </span>
+                    <!- 标题 ->
+                    <h4>
+                        <b><a href="" style="">{{article.title}}</a> </b>
+                    </h4>
+                    <!- 摘要 ->
+                    <div>
+                        <p style="">
+                            {{ article.content }}
+                        </p>
+                    </div>
+                    <p style="border-top: 3px dashed brown">
+                        <!-阅读 评论 时间->
+                        <span><i class="fas fa-eye" style="flex:1">阅读量：&nbsp;&nbsp;{{ article.total_views }} &nbsp;&nbsp;&nbsp;&nbsp;</i> </span>
+                        <span><i class="fas fa-comments" style="flex:1">&nbsp;&nbsp;评论量：&nbsp;&nbsp;{{ article.comments_count }} &nbsp;&nbsp;&nbsp;&nbsp;</i> </span>
+                        <span><i class="fas fa-clock" style="flex: 2">&nbsp;&nbsp;发布时间：&nbsp;&nbsp;{{ article.created }}&nbsp;&nbsp;&nbsp;&nbsp; </i> </span>
+                        <span><i class="fas fa-clock" style="float: right">&nbsp;&nbsp;文章作者：&nbsp;&nbsp;{{ article.author }}</i> </span>
+                    </p>
+                </div>
+            </div>
+     <!-评论模块->
+    <div style="border-top: 3px dashed brown">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ article.id }}">
+            <div class="form-group">
+                <label for="body"><strong>评论区:</strong></label>
+                <div>
+                    <div>
+                        <textarea cols="80", id="id_body" name="content" rows="8" required>
+
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">发表</button>
+        </form>
+    </div>
+     <br>
+     <!-评论->
+     <h4>共有&nbsp;&nbsp;{{ total_count }}&nbsp;&nbsp;条评论</h4>
+     <div class="row">
+     {% if comments %}
+         {% for comment in comments %}
+             <div class="col-12">
+                 <hr><p><strong style=""></strong> </p>
+                 <div>
+                     <div>
+                         <span><strong>{{ comment.user.username }}</strong></span><span style="">&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;{{ comment.created|date:'Y-m-d H:i' }}</span>
+                         <br>
+                         <p>{{ comment.content|safe }}</p>
+                     </div>
+                 </div>
+             </div>
+         {% endfor %}
+     {% endif %}
+         <div class="pagenation" style="">
+             <div id="pagenation" class="page"></div>
+         </div>
+     </div>
+ </div>
+
+        <!- footer ->
+        <footer class="py-3 bg-dark" id="footer">
+            <div class="container">
+                <h5 class="m-0 text-center text-white">Copyright @ Zhangjialun</h5>
+            </div>
+        </footer>
+    </div>
+    <!- 引入js ->
+    <script type="text/javascript" src="{% static 'js/host.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/common.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/register.js'%}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#pagination').pagination({
+                currentPage:{{ page_num }},
+                totalPage:{{ total_page }},
+                callback:function (current) {
+                    //实现分页功能
+                    location.href = '/detail/?id={{ article.id }}&page_size={{ page_size }}&page_num='+current;
+                }
+            })
+        })
+    </script>
+</body>
+</html>

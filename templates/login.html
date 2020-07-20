@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'js/vue.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/axios.min.js' %}"></script>
+
+</head>
+<body>
+    <div id="app">
+        <!-导航栏->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-导航栏商标 ->
+            <div class="container">
+                <div>
+                     <a class="navbar-brand" href="index.html">个人博客</a>
+                </div>
+            </div>
+            <!- 登录/个人中心 ->
+            <div class="navbar-collapse">
+            </div>
+        </nav>
+        <!- content ->
+        <div class="container" style="">
+            <div class="row">
+                <div class="col-12">
+                    <div class="col-6">
+                        <form class="login" id="login_form" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_login">手机号/账号:</label>
+                                <div>
+                                    <input type="text" name="mobile" placeholder="请输入手机号/账号" maxlength="11">
+                                </div>
+                                <small class="form-text text-muted ml-1">
+                                    还没有账号？
+                                    <a href="{% url 'users:register' %}" style="" role="button">去注册</a>
+                                </small>
+                            </div>
+                            <div class="form-group mb-1">
+                                <label for="id_password">密码:</label>
+                                <div>
+                                    <input type="password" name="password" placeholder="请输入密码"
+                                        required id="id_password"  v-model="password1">
+                                </div>
+                                <small class="form-text text-muted ml-1">
+                                    <a href="{% static 'forget.html' %}" class="secondaryAction layui-text" role="button">忘记密码</a>
+                                </small>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" name="remeber" id="id_remember" checked class="custom-control-input" v-model="remembered">
+                                <label for="id_remember" class="custom-control-label">保持登录</label>
+                            </div>
+                            <button class="primaryAciton btn btn-primary" type="submit" id="submit_login" @click="on_submit">登录</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!- footer ->
+        <footer class="py-3 bg-dark" id="footer">
+            <div class="container">
+                <h5 class="m-0 text-center text-white">Copyright @ Zhangjialun</h5>
+            </div>
+        </footer>
+        <!- 引入js ->
+        <script type="text/javascript" src="{% static 'js/host.js'%}"></script>
+        <script type="text/javascript" src="{% static 'js/common.js'%}"></script>
+        <script type="text/javascript" src="{% static 'js/register.js'%}"></script>
+    </div>
+</body>
+</html>
